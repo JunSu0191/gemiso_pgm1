@@ -5,6 +5,10 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 
 ?>
 (function(){
+	 <!-- Ext.getCmp('user_list').getStore().reload(); 함수 선언 -->
+	function reload() {
+		Ext.getCmp('user_list').getStore().reload();
+	}
 	var productPanel = {
 		xtype: 'panel',
 		layout: 'fit',
@@ -12,21 +16,33 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 			xtype: 'grid',
 			id: 'user_list',
 			tbar: [
-			/*
-			'사용자 : ',{
+
+			//text: _text('MN00038')
+			'<?= _text('MN00037')?> : ',{
 				width: 200,
 				xtype: 'textfield',
-				id: 'search_key'
+				id: 'search_key',
+				enableKeyEvents: true,
+				listeners: {
+				keypress: function(self, e){
+					if(e.keyCode == 13){
+						<!-- Ext.getCmp('user_list').getStore().reload(); -->
+						reload();
+					}
+				}
+			}
 			},{
-				text: '검색',
+				
+				text: '<?= _text('MN00038')?>',
 				icon: '/led-icons/magnifier.png',
 				listeners: {
 					click: function(self){
-						Ext.getCmp('user_list').getStore().load();
+						<!-- Ext.getCmp('user_list').getStore().reload(); -->
+						 reload();
 					}
 				}
 			},'-',
-			*/
+			
 			{
 				//text: _text('MN00030'),
 				text: '<?= _text('MN00030')?>',
@@ -66,7 +82,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 				//text: _text('MN00029'),
 				text: '<?= _text('MN00029')?>',
 				handler: function(btn){
-					Ext.getCmp('user_list').getStore().reload();
+					<!-- Ext.getCmp('user_list').getStore().reload(); -->
+					reload();
 				}
 			},'-',{
 				icon: '/led-icons/arrow_refresh.png',
@@ -79,8 +96,10 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 						Ext.Msg.alert('알림', '삭제할 프로젝트를 선택해주세요.');
 						return;
 					}
+					
 					Ext.Msg.show({
-						title: '알림',
+						//text: _text('MN00023'),
+						text: '<?= _text('MN00023')?>',
 						msg: name+' 님의 비밀번호를 gemiso1!로 초기화 하시겠습니까??',
 						buttons: Ext.Msg.OKCANCEL,
 						fn: function(btn){
@@ -148,11 +167,11 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 						}
 					},
 					beforeload: function(self, opts){
-						//var searchkey = Ext.getCmp('search_key').getValue();
+						var searchkey = Ext.getCmp('search_key').getValue();
 
 						self.baseParams = {
 							action: 'getUserList'
-							//,searchkey: searchkey
+							,searchkey: searchkey
 						}
 					},
 					load: function(self, records, opts){
@@ -270,7 +289,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							Ext.getCmp('user_list').getStore().load();
+							<!-- Ext.getCmp('user_list').getStore().reload(); -->
+							reload();
 							if(action == 'regist' || action == 'update_in_userManagement'){
 								Ext.getCmp('registUserForm').close();
 							}
@@ -514,4 +534,5 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 	}
 
 	return productPanel;
+
 })()

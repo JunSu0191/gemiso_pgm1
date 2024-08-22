@@ -12,6 +12,18 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 	$user_level = $db->queryOne($q);
 ?>
 (function(){
+	<!-- Ext.getCmp('proj_list').getStore().reload(); 함수 선언 -->
+	function projList() {
+		Ext.getCmp('proj_list').getStore().reload();
+	}
+	<!-- Ext.getCmp('license_list').getStore().reload(); 함수 선언 -->
+	function licenseList() {
+		Ext.getCmp('license_list').getStore().reload();
+	}
+	<!-- Ext.getCmp('list_id').getStore().reload(); 함수 선언 -->
+	function listId() {
+		Ext.getCmp('list_id').getStore().reload();
+	}
 	var copyText = '';
 	var clipBoard_client1 = '';
 	var clipBoard_client2 = '';
@@ -88,12 +100,30 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					xtype: 'textfield',
 					fieldLabel: '고객사',
 					id: 'cust_nm',
-					width: 120
+					width: 120,
+					enableKeyEvents: true,
+					listeners: {
+					keypress: function(self, e){
+						if(e.keyCode == 13){
+							<!-- Ext.getCmp('proj_list').getStore().reload(); -->
+							 projList();
+						}
+					}
+				}
 				},'-','프로젝트 : ',{
 					xtype: 'textfield',
 					fieldLabel: '프로젝트',
 					id: 'proj_nm',
-					width: 120
+					width: 120,
+					enableKeyEvents: true,
+					listeners: {
+					keypress: function(self, e){
+						if(e.keyCode == 13){
+							<!-- Ext.getCmp('proj_list').getStore().reload(); -->
+							 projList();
+						}
+					}
+				}
 				},'-','품명 : ',{
 					width: 120,
 					xtype: 'combo',
@@ -134,8 +164,10 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					icon: '/led-icons/magnifier.png',
 					listeners: {
 						click: function(self){
-							Ext.getCmp('proj_list').getStore().load();
-							Ext.getCmp('license_list').getStore().removeAll();
+							<!-- Ext.getCmp('proj_list').getStore().reload(); -->
+							 projList();
+							<!-- Ext.getCmp('license_list').getStore().removeAll(); -->
+							 licenseList();
 						}
 					}
 				},'-',{
@@ -284,7 +316,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 						selectionchange: function(selModel){
 							if(Ext.isEmpty(selModel.getSelected())) return;
 
-							Ext.getCmp('license_list').getStore().load();
+							<!-- Ext.getCmp('license_list').getStore().reload(); -->
+							licenseList();
 
 							var select_row = selModel.getSelected();
 							var use = Ext.getCmp('proj_list').topToolbar.items.items[16];
@@ -333,7 +366,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					//text: _text('MN00029'),
 					text: '<?= _text('MN00029')?>',
 					handler: function(btn){
-						Ext.getCmp('license_list').getStore().reload();
+						<!-- Ext.getCmp('license_list').getStore().reload(); -->
+						licenseList();
 					}
 				},'-',{
 				/*
@@ -400,7 +434,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 												try{
 													var r = Ext.decode(response.responseText);
 													if(r.success){
-														Ext.getCmp('license_list').getStore().reload();
+														<!-- Ext.getCmp('license_list').getStore().reload(); -->
+														licenseList();
 													}
 													else{
 														Ext.Msg.alert('오류', r.msg);
@@ -504,7 +539,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 							self.setValue(self.getStore().getAt(0).get('v'));
 						},
 						select: function(self, record, index){
-							Ext.getCmp('license_list').getStore().load();
+							<!-- Ext.getCmp('license_list').getStore().reload(); -->
+							licenseList();
 						}
 					}
 				},'-','상태 : ',{
@@ -531,7 +567,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 							self.setValue(self.getStore().getAt(0).get('v'));
 						},
 						select: function(self, record, index){
-							Ext.getCmp('license_list').getStore().load();
+							<!-- Ext.getCmp('license_list').getStore().reload(); -->
+							 licenseList();
 						}
 					}
 				},'-', {
@@ -540,7 +577,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					boxLabel: '만료된 라이센스',
 					listeners: {
 						check: function(self, checked){
-							Ext.getCmp('license_list').getStore().load();
+							<!-- Ext.getCmp('license_list').getStore().reload(); -->
+							licenseList();
 						}
 					}
 				}],
@@ -796,7 +834,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							Ext.getCmp('license_list').getStore().reload();
+							<!-- Ext.getCmp('license_list').getStore().reload(); -->
+							licenseList();
 						}										
 						else{
 							Ext.Msg.alert('오류', r.msg);
@@ -1036,7 +1075,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 			buttons: [{
 				text: '닫기',
 				handler: function(btn){
-					Ext.getCmp('proj_list').getStore().load();
+					<!-- Ext.getCmp('proj_list').getStore().reload(); -->
+					 projList();
 					Ext.getCmp('license_list').getStore().removeAll();
 					btn.ownerCt.ownerCt.close();
 				}
@@ -1071,7 +1111,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 							}
 							else{
 								selectProjRow = '';
-								Ext.getCmp('proj_list').getStore().load();
+								<!-- Ext.getCmp('proj_list').getStore().reload(); -->
+								 projList();
 							}
 						}											
 						else{
@@ -1527,7 +1568,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 									var r = Ext.decode(response.responseText);
 									if(r.success){
 										selectLicenseRow = r.id;
-										Ext.getCmp(list_id).getStore().reload();
+										<!-- Ext.getCmp(list_id).getStore().reload(); -->
+										listId();
 										btn.ownerCt.ownerCt.close();
 									}
 									else{
@@ -1550,7 +1592,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 			},{
 				text: '닫기',
 				handler: function(btn){
-					Ext.getCmp(list_id).getStore().reload();
+					<!-- Ext.getCmp(list_id).getStore().reload(); -->
+					listId();
 					btn.ownerCt.ownerCt.close();
 				}
 			}]
@@ -1647,7 +1690,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 																					var r = Ext.decode(response.responseText);
 																					if(r.success){
 																						selectLicenseRow = '';
-																						Ext.getCmp(list_id).getStore().reload();
+																						<!-- Ext.getCmp(list_id).getStore().reload(); -->
+																						listId();
 																					}
 																					else{
 																						Ext.Msg.alert('오류', r.msg);

@@ -3,6 +3,10 @@ session_start();
 require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 ?>
 (function(){
+	<!-- Ext.getCmp('product_list').getStore().reload(); 함수 선언 -->
+	function productList() {
+		Ext.getCmp('product_list').getStore().reload();
+	}
 	var productPanel = {
 		xtype: 'panel',
 		layout: 'fit',
@@ -43,22 +47,45 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 				listeners: {
 					render: function(self){
 						self.setValue(self.getStore().getAt(0).get('v'));
+					},
+					select: function(self, record, index){
+						<!-- Ext.getCmp('product_list').getStore().reload(); -->
+						productList();
 					}
 				}
 			},'회사명 : ',{
 				width: 200,
 				xtype: 'textfield',
-				id: 'search_f_company_nm'
+				id: 'search_f_company_nm',
+				enableKeyEvents: true,
+				listeners: {
+				keypress: function(self, e){
+					if(e.keyCode == 13){
+						<!-- Ext.getCmp('product_list').getStore().reload(); -->
+						productList();
+					}
+				}
+			}
 			},'제품명 : ',{
 				width: 200,
 				xtype: 'textfield',
-				id: 'search_f_product_nm'
+				id: 'search_f_product_nm',
+				enableKeyEvents: true,
+				listeners: {
+				keypress: function(self, e){
+					if(e.keyCode == 13){
+						<!-- Ext.getCmp('product_list').getStore().reload(); -->
+						productList();
+					}
+				}
+			}
 			},{
 				text: '검색',
 				icon: '/led-icons/magnifier.png',
 				listeners: {
 					click: function(self){
-						Ext.getCmp('product_list').getStore().load();
+						<!-- Ext.getCmp('product_list').getStore().reload(); -->
+						productList();
 					}
 				}
 			},'-',{
@@ -441,7 +468,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							Ext.getCmp('product_list').getStore().load();
+							<!-- Ext.getCmp('product_list').getStore().reload(); -->
+							productList();
 							if(action == 'regist' || action == 'update'){
 								Ext.getCmp('registProductForm').ownerCt.close();
 							}
