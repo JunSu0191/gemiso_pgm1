@@ -3,10 +3,6 @@ session_start();
 require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 ?>
 (function(){
-	<!-- Ext.getCmp('product_list').getStore().reload(); 함수 선언 -->
-	function productList() {
-		Ext.getCmp('product_list').getStore().reload();
-	}
 	var productPanel = {
 		xtype: 'panel',
 		layout: 'fit',

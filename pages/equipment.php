@@ -12,11 +12,6 @@ $product_list = $db->queryAll("
 ");
 ?>
 (function(){
-		 <!-- Ext.getCmp('equipment_list').getStore().reload(); 함수 선언 -->
-
-	function equipmentList() {
-		equipmentList();
-	}
 	var productPanel = {
 		xtype: 'panel',
 		layout: 'fit',

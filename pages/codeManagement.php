@@ -3,14 +3,6 @@ session_start();
 require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 ?>
 (function(){
-	<!-- Ext.getCmp('codeTypeList').getStore().reload(); 함수 선언 -->
-	function codeTypeList() {
-		Ext.getCmp('codeTypeList').getStore().reload();
-	}
-	<!-- Ext.getCmp('codeList').getStore().reload(); 함수 선언 -->
-	function codeList() {
-		Ext.getCmp('codeList').getStore().reload();
-	}
 	var getCodeManagementPanel = {
 		xtype: 'panel',
 		layout: 'border',

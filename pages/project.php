@@ -12,18 +12,6 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 	$user_level = $db->queryOne($q);
 ?>
 (function(){
-	<!-- Ext.getCmp('proj_list').getStore().reload(); 함수 선언 -->
-	function projList() {
-		Ext.getCmp('proj_list').getStore().reload();
-	}
-	<!-- Ext.getCmp('license_list').getStore().reload(); 함수 선언 -->
-	function licenseList() {
-		Ext.getCmp('license_list').getStore().reload();
-	}
-	<!-- Ext.getCmp('list_id').getStore().reload(); 함수 선언 -->
-	function listId() {
-		Ext.getCmp('list_id').getStore().reload();
-	}
 	var copyText = '';
 	var clipBoard_client1 = '';
 	var clipBoard_client2 = '';

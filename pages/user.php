@@ -5,10 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 
 ?>
 (function(){
-	 <!-- Ext.getCmp('user_list').getStore().reload(); 함수 선언 -->
-	function userList() {
-		Ext.getCmp('user_list').getStore().reload();
-	}
 	var productPanel = {
 		xtype: 'panel',
 		layout: 'fit',
