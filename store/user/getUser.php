@@ -68,7 +68,7 @@ try
 					, (SELECT (LASTNAME||FIRSTNAME) FROM BC_USER WHERE LOGIN_ID = U.UPDATE_USER) UPDATE_USER_NM
 			FROM	BC_USER U
 			WHERE	U.USE_YN = 'Y'
-			AND		U.LASTNAME || U.FIRSTNAME LIKE '%$searchkey%'
+			AND		U.LASTNAME || U.FIRSTNAME LIKE '%$searchkey%'	-- 사용자관리 페이지 검색 기능 쿼리 추가	-- jsshin 24-08-23
 			".$sort_q."
 		";
 		
