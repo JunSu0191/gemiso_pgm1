@@ -3,6 +3,14 @@ session_start();
 require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 ?>
 (function(){
+	<!-- Ext.getCmp('codeTypeList').getStore().reload(); 함수 선언 -->
+	function codeTypeList() {
+		Ext.getCmp('codeTypeList').getStore().reload();
+	}
+	<!-- Ext.getCmp('codeList').getStore().reload(); 함수 선언 -->
+	function codeList() {
+		Ext.getCmp('codeList').getStore().reload();
+	}
 	var getCodeManagementPanel = {
 		xtype: 'panel',
 		layout: 'border',
@@ -44,12 +52,20 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 			},{
 				xtype: 'textfield',
 				width: 250,
-				id: 'search_v_c'
+				id: 'search_v_c',
+				enableKeyEvents: true,
+				listeners: {
+					keypress: function(self, e){
+						if(e.keyCode == 13){
+							codeTypeList();
+						}
+					}
+				}
 			},{
 				text: '검색',
 				icon: '/led-icons/magnifier.png',
 				handler: function(btn){
-					Ext.getCmp('codeTypeList').getStore().load();
+					codeTypeList();
 				}
 			},'-',{
 				text: '등록',
@@ -218,7 +234,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 				icon: '/led-icons/arrow_refresh.png',
 				text: '새로고침',
 				handler: function(btn){
-					Ext.getCmp('codeList').getStore().reload();
+					codeList();
 				}
 			},{
 				text: '등록',
@@ -452,11 +468,11 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 						var r = Ext.decode(response.responseText);
 						if(r.success){							
 							if(flag == 'regist' || flag == 'update'){
-								Ext.getCmp('codeTypeList').getStore().load();
+								codeTypeList();
 								Ext.getCmp('code_type_regist_form').ownerCt.close();
 							}
 							else if(flag == 'remove'){
-								Ext.getCmp('codeTypeList').getStore().load();
+								codeTypeList();
 							}
 						}
 						else{
@@ -560,9 +576,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							
-							Ext.getCmp('codeList').getStore().reload();
-
+							codeList();
 							if(flag == 'regist' || flag == 'update'){
 								Ext.getCmp('registCode_form').ownerCt.close();
 							}

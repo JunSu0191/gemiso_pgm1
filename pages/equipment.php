@@ -12,6 +12,11 @@ $product_list = $db->queryAll("
 ");
 ?>
 (function(){
+		 <!-- Ext.getCmp('equipment_list').getStore().reload(); 함수 선언 -->
+
+	function equipmentList() {
+		equipmentList();
+	}
 	var productPanel = {
 		xtype: 'panel',
 		layout: 'fit',
@@ -46,7 +51,7 @@ $product_list = $db->queryAll("
 						self.setValue(self.getStore().getAt(0).get('v'));
 					},
 					select: function(self, record, index){
-						Ext.getCmp('equipment_list').getStore().load();
+						equipmentList();
 					}
 				}
 			}
@@ -54,19 +59,35 @@ $product_list = $db->queryAll("
 			{
 				width: 150,
 				xtype: 'textfield',
-				id: 'search_f_login_id'
+				id: 'search_f_login_id',
+				enableKeyEvents: true,
+				listeners: {
+				keypress: function(self, e){
+					if(e.keyCode == 13){
+						equipmentList();
+					}
+				}
+			}
 			}
 			,'-' , '장비명',
 			{
 				width: 150,
 				xtype: 'textfield',
-				id: 'search_f_equ_nm'
+				id: 'search_f_equ_nm',
+				enableKeyEvents: true,
+				listeners: {
+				keypress: function(self, e){
+					if(e.keyCode == 13){
+						equipmentList();
+					}
+				}
+			}
 			},{
 				text: '검색',
 				icon: '/led-icons/magnifier.png',
 				listeners: {
 					click: function(self){
-						Ext.getCmp('equipment_list').getStore().load();
+						equipmentList();
 					}
 				}
 			},'-',{
@@ -453,7 +474,7 @@ $product_list = $db->queryAll("
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							Ext.getCmp('equipment_list').getStore().load();
+							equipmentList();
 							if(action == 'regist' || action == 'update'){
 								Ext.getCmp('registEquipmentForm').ownerCt.close();
 							}

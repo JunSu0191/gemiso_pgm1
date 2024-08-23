@@ -6,7 +6,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 ?>
 (function(){
 	 <!-- Ext.getCmp('user_list').getStore().reload(); 함수 선언 -->
-	function reload() {
+	function userList() {
 		Ext.getCmp('user_list').getStore().reload();
 	}
 	var productPanel = {
@@ -26,8 +26,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 				listeners: {
 				keypress: function(self, e){
 					if(e.keyCode == 13){
-						<!-- Ext.getCmp('user_list').getStore().reload(); -->
-						reload();
+						userList();
 					}
 				}
 			}
@@ -37,7 +36,6 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 				icon: '/led-icons/magnifier.png',
 				listeners: {
 					click: function(self){
-						<!-- Ext.getCmp('user_list').getStore().reload(); -->
 						 reload();
 					}
 				}
@@ -82,8 +80,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 				//text: _text('MN00029'),
 				text: '<?= _text('MN00029')?>',
 				handler: function(btn){
-					<!-- Ext.getCmp('user_list').getStore().reload(); -->
-					reload();
+					userList();
 				}
 			},'-',{
 				icon: '/led-icons/arrow_refresh.png',
@@ -289,8 +286,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							<!-- Ext.getCmp('user_list').getStore().reload(); -->
-							reload();
+							userList();
 							if(action == 'regist' || action == 'update_in_userManagement'){
 								Ext.getCmp('registUserForm').close();
 							}
