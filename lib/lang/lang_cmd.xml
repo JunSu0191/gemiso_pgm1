@@ -216,4 +216,46 @@
 		<emenu>reset password</emenu>
 		<desc>-</desc>
 	</menu>
+	<menu>
+		<mcode>MN00037</mcode>
+		<hmenu>사용자명</hmenu>
+		<emenu>username</emenu>
+		<desc>-</desc>
+	</menu>
+	<menu>
+		<mcode>MN00038</mcode>
+		<hmenu>검색</hmenu>
+		<emenu>Search</emenu>
+		<desc>-</desc>
+	</menu>
+	<menu>
+		<mcode>MN00039</mcode>
+		<hmenu>장비명</hmenu>
+		<emenu>equipment</emenu>
+		<desc>-</desc>
+	</menu>
+	<menu>
+		<mcode>MN00040</mcode>
+		<hmenu>회사명</hmenu>
+		<emenu>Company name</emenu>
+		<desc>-</desc>
+	</menu>
+	<menu>
+		<mcode>MN00041</mcode>
+		<hmenu>제품명</hmenu>
+		<emenu>Product name</emenu>
+		<desc>-</desc>
+	</menu>
+	<menu>
+		<mcode>MN00042</mcode>
+		<hmenu>고객사</hmenu>
+		<emenu>Customer</emenu>
+		<desc>-</desc>
+	</menu>
+	<menu>
+		<mcode>MN00043</mcode>
+		<hmenu>품명</hmenu>
+		<emenu>Product name</emenu>
+		<desc>-</desc>
+	</menu>
 </root>
