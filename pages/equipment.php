@@ -1,6 +1,7 @@
 <?
 session_start();
 require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 
 $product_list = $db->queryAll("
 	SELECT	C.CODE, C.CODE_NM
@@ -46,43 +47,41 @@ $product_list = $db->queryAll("
 						self.setValue(self.getStore().getAt(0).get('v'));
 					},
 					select: function(self, record, index){
-						equipmentList();
+						storeReload(self);
 					}
-				}
+				} 	
 			}
-			,'-' , '사용자명 : ',
+			,'-' , '<?= _text('MN00037')?> : ',
 			{
 				width: 150,
 				xtype: 'textfield',
 				id: 'search_f_login_id',
 				enableKeyEvents: true,
+				// 자산 관리 엔터 검색 기능 추가 // jsshin 24-08-23
 				listeners: {
-				keypress: function(self, e){
-					if(e.keyCode == 13){
-						equipmentList();
+					keypress: function(self, e){
+						storeReload(self, e);
 					}
 				}
 			}
-			}
-			,'-' , '장비명',
+			,'-' , '<?= _text('MN00039')?>',
 			{
 				width: 150,
 				xtype: 'textfield',
 				id: 'search_f_equ_nm',
 				enableKeyEvents: true,
 				listeners: {
+				// 자산 관리 엔터 검색 기능 추가 // jsshin 24-08-23
 				keypress: function(self, e){
-					if(e.keyCode == 13){
-						equipmentList();
-					}
+					storeReload(self, e);
 				}
 			}
 			},{
-				text: '검색',
+				text: '<?= _text('MN00038')?>',
 				icon: '/led-icons/magnifier.png',
 				listeners: {
 					click: function(self){
-						equipmentList();
+						storeReload(self);
 					}
 				}
 			},'-',{
@@ -469,7 +468,7 @@ $product_list = $db->queryAll("
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							equipmentList();
+							Ext.getCmp('equipment_list').getStore().reload();
 							if(action == 'regist' || action == 'update'){
 								Ext.getCmp('registEquipmentForm').ownerCt.close();
 							}

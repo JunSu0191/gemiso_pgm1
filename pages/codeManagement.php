@@ -48,16 +48,14 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 				enableKeyEvents: true,
 				listeners: {
 					keypress: function(self, e){
-						if(e.keyCode == 13){
-							codeTypeList();
-						}
+						storeReload(self, e);
 					}
 				}
 			},{
 				text: '검색',
 				icon: '/led-icons/magnifier.png',
 				handler: function(btn){
-					codeTypeList();
+					storeReload(self);
 				}
 			},'-',{
 				text: '등록',
@@ -226,7 +224,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 				icon: '/led-icons/arrow_refresh.png',
 				text: '새로고침',
 				handler: function(btn){
-					codeList();
+					storeReload(btn);
 				}
 			},{
 				text: '등록',
@@ -460,11 +458,11 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 						var r = Ext.decode(response.responseText);
 						if(r.success){							
 							if(flag == 'regist' || flag == 'update'){
-								codeTypeList();
+								Ext.getCmp('codeTypeList').getStore().reload();
 								Ext.getCmp('code_type_regist_form').ownerCt.close();
 							}
 							else if(flag == 'remove'){
-								codeTypeList();
+								Ext.getCmp('codeTypeList').getStore().reload();
 							}
 						}
 						else{
@@ -568,7 +566,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							codeList();
+							Ext.getCmp('codeList').getStore().reload();
 							if(flag == 'regist' || flag == 'update'){
 								Ext.getCmp('registCode_form').ownerCt.close();
 							}

@@ -89,12 +89,26 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					xtype: 'textfield',
 					fieldLabel: '고객사',
 					id: 'cust_nm',
-					width: 120
+					width: 120,
+					enableKeyEvents: true,
+						listeners: {
+						// 라이센스 관리 엔터 검색 기능 추가 // jsshin 24-08-23
+						keypress: function(self, e){
+							storeReload(self, e);
+						}
+					}
 				},'-','<?= _text('MN00026')?> : ',{
 					xtype: 'textfield',
 					fieldLabel: '프로젝트',
 					id: 'proj_nm',
-					width: 120
+					width: 120,
+					enableKeyEvents: true,
+					listeners: {
+						// 라이센스 관리 엔터 검색 기능 추가 // jsshin 24-08-23
+						keypress: function(self, e){
+							storeReload(self, e);
+						}
+					}
 				},'-','<?= _text('MN00043')?> : ',{
 					width: 120,
 					xtype: 'combo',
@@ -105,6 +119,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					mode: 'local',
 					displayField: 'd',
 					valueField: 'v',
+					enableKeyEvents: true,
 					store: new Ext.data.ArrayStore({
 						fields: [
 							'v', 'd'
@@ -128,6 +143,13 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					listeners: {
 						render: function(self){
 							self.setValue(self.getStore().getAt(0).get('v'));
+						},
+						select: function(self, record, index){
+							storeReload(self);
+						},
+						// 라이센스 관리 엔터 검색 기능 추가 // jsshin 24-08-23
+						keypress: function(self, e){
+							storeReload(self, e);
 						}
 					}
 				},{

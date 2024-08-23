@@ -13,26 +13,25 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 			id: 'user_list',
 			tbar: [
 
-			//text: _text('MN00038')
-			'<?= _text('MN00037')?> : ',{
+				//text: _text('MN00037')
+				'<?= _text('MN00037')?> : ',{
 				width: 200,
 				xtype: 'textfield',
 				id: 'search_key',
 				enableKeyEvents: true,
+				// 사용자 관리 엔터 검색 기능 추가	// jsshin 24-08-23
 				listeners: {
 				keypress: function(self, e){
-					if(e.keyCode == 13){
-						userList();
-					}
+					storeReload(self, e);
 				}
 			}
 			},{
-				
+				//text: _text('MN00038')
 				text: '<?= _text('MN00038')?>',
 				icon: '/led-icons/magnifier.png',
 				listeners: {
 					click: function(self){
-						 reload();
+						storeReload(self);
 					}
 				}
 			},'-',
@@ -76,7 +75,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 				//text: _text('MN00029'),
 				text: '<?= _text('MN00029')?>',
 				handler: function(btn){
-					userList();
+					storeReload(btn);
 				}
 			},'-',{
 				icon: '/led-icons/arrow_refresh.png',
@@ -282,7 +281,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							userList();
+							storeReload(self);;
 							if(action == 'regist' || action == 'update_in_userManagement'){
 								Ext.getCmp('registUserForm').close();
 							}

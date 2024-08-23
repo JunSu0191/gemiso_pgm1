@@ -1272,7 +1272,7 @@ $user_data = $db->queryRow("
 				height: 300,
 				title: '라이센스 검색',
 				layout: 'fit',
-				modal: true,
+				modal: true, 
 				border: false,
 				items: [{
 					xtype: 'panel',
@@ -1419,7 +1419,12 @@ $user_data = $db->queryRow("
 
 			//
 		}
-
+		// storeReload 전역 함수 추가	// sjshin 24-08-23
+		function storeReload(list_name, keypress = null){
+		if(keypress > ' ' && keypress.keyCode != 13) return;
+		Ext.getCmp(list_name.ownerCt.ownerCt.id).getStore().reload();
+      }
+	
 	</script>
 
 </body>

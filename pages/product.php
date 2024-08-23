@@ -1,6 +1,7 @@
 <?
 session_start();
 require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/lib/lang.php');
 ?>
 (function(){
 	var productPanel = {
@@ -17,7 +18,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 				editable: false,
 				mode: 'local',
 				displayField: 'd',
-				valueField: 'v',
+				valueField: 'v', 
 				store: new Ext.data.ArrayStore({
 					fields: [
 						'v', 'd'
@@ -45,43 +46,37 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 						self.setValue(self.getStore().getAt(0).get('v'));
 					},
 					select: function(self, record, index){
-						<!-- Ext.getCmp('product_list').getStore().reload(); -->
-						productList();
+						storeReload(self);
 					}
 				}
-			},'회사명 : ',{
+			},'-','<?= _text('MN00040')?> : ',{
 				width: 200,
 				xtype: 'textfield',
 				id: 'search_f_company_nm',
+				// 제품 관리 엔터 검색 기능 추가 // jsshin 24-08-23
 				enableKeyEvents: true,
 				listeners: {
-				keypress: function(self, e){
-					if(e.keyCode == 13){
-						<!-- Ext.getCmp('product_list').getStore().reload(); -->
-						productList();
+					keypress: function(self, e){
+						storeReload(self, e);
 					}
 				}
-			}
-			},'제품명 : ',{
+			},'-','<?= _text('MN00041')?> : ',{
 				width: 200,
 				xtype: 'textfield',
 				id: 'search_f_product_nm',
+				// 제품 관리 엔터 검색 기능 추가 // jsshin 24-08-23
 				enableKeyEvents: true,
 				listeners: {
-				keypress: function(self, e){
-					if(e.keyCode == 13){
-						<!-- Ext.getCmp('product_list').getStore().reload(); -->
-						productList();
+					keypress: function(self, e){
+						storeReload(self, e);
 					}
 				}
-			}
 			},{
-				text: '검색',
+				text: '<?= _text('MN00038')?>',
 				icon: '/led-icons/magnifier.png',
-				listeners: {
+				listeners: {	 
 					click: function(self){
-						<!-- Ext.getCmp('product_list').getStore().reload(); -->
-						productList();
+						storeReload(self);
 					}
 				}
 			},'-',{
@@ -464,8 +459,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/lib/config.php');
 					try{
 						var r = Ext.decode(response.responseText);
 						if(r.success){
-							<!-- Ext.getCmp('product_list').getStore().reload(); -->
-							productList();
+							getList(product_list);
 							if(action == 'regist' || action == 'update'){
 								Ext.getCmp('registProductForm').ownerCt.close();
 							}
